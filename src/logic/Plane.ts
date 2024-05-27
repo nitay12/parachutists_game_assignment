@@ -34,9 +34,9 @@ export abstract class Plane {
             this.dropParachutist();
             this.dropTimer = 0;
         }
-        this.x += 1;
-        if (this.x > CANVAS_WIDTH) {
-            this.x = -this.width;
+        this.x -= 1;
+        if (this.x < -this.width) {
+            this.x = CANVAS_WIDTH;
         }
     }
 

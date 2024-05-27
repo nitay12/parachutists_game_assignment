@@ -15,7 +15,7 @@ export class Game {
     this.canvas = canvas;
     this.context = context;
     this.boat = new Boat(canvas.width, canvas.height);
-    this.plane = new SingleDropPlane(40, 40, 50, 10);
+    this.plane = new SingleDropPlane(40, 40, 50, 30);
     this.renderer = new Renderer(this.context);
     this.lastTime = 0;
   }

@@ -1,6 +1,6 @@
 import { Parachutist } from './Parachutist';
 import { DROP_INTERVAL } from '../config/constants';
-import { CANVAS_WIDTH, PLANE_IMAGE } from '../config/config';
+import { CANVAS_HEIGHT, CANVAS_WIDTH, PLANE_IMAGE } from '../config/config';
 
 export abstract class Plane {
     protected x: number;
@@ -28,20 +28,24 @@ export abstract class Plane {
 
     abstract dropParachutist(): void;
 
-    update(deltaTime: number) {
-        this.dropTimer += deltaTime;
-        if (this.dropTimer >= this.dropInterval) {
+   update(deltaTime: number) {
+          this.dropTimer += 10;
+
+        while (this.dropTimer >= this.dropInterval) {
             this.dropParachutist();
-            this.dropTimer = 0;
+            this.dropTimer -= this.dropInterval; // Correctly reduce by dropInterval
         }
         this.x -= 1;
         if (this.x < -this.width) {
             this.x = CANVAS_WIDTH;
         }
+        this.parachutists.forEach(parachutist => parachutist.update(deltaTime));
     }
 
     draw(context: CanvasRenderingContext2D) {
         context.drawImage(this.planeImage, this.x, this.y, this.width, this.height);
+        this.parachutists.forEach(parachutist => parachutist.draw(context));
+        this.parachutists = this.parachutists.filter(parachutist => !parachutist.isOutOfBounds(CANVAS_HEIGHT-parachutist.getBounds().height) && !parachutist.isCaught());
     }
 
     getParachutists() {

@@ -1,5 +1,6 @@
 import { Boat } from '../logic/Boat';
 import { Plane } from '../logic/Plane';
+import { Parachutist } from '../logic/Parachutist';
 
 export class Renderer {
     private context: CanvasRenderingContext2D;
@@ -17,5 +18,8 @@ export class Renderer {
     }
     drawPlane(plane: Plane) {
         plane.draw(this.context)
+    }
+    drawParachutists(parachutists: Parachutist[]) {
+        parachutists.forEach(parachutist => parachutist.draw(this.context));
     }
 }

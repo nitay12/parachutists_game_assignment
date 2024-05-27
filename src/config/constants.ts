@@ -9,4 +9,4 @@ export const DROP_INTERVAL = 3000
 // PARACHUTIST Constants
 export const PARACHUTIST_WIDTH = 40
 export const PARACHUTIST_HEIGHT = 80
-export const PARACHUTIST_SPEED = 0.1
+export const PARACHUTIST_SPEED = 0.8

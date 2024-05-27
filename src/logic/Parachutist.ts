@@ -27,7 +27,7 @@ export class Parachutist {
   update(deltaTime: number) {
     if (!this.isCaught()) {
 
-      this.y += (this.speed * deltaTime) / 1000;
+      this.y += this.speed;
     }
   }
 

@@ -1,4 +1,5 @@
 import { Boat } from '../logic/Boat';
+import { Plane } from '../logic/Plane';
 
 export class Renderer {
     private context: CanvasRenderingContext2D;
@@ -13,5 +14,8 @@ export class Renderer {
 
     drawBoat(boat: Boat) {
         boat.draw(this.context);
+    }
+    drawPlane(plane: Plane) {
+        plane.draw(this.context)
     }
 }

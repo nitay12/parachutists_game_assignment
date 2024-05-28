@@ -1,3 +1,6 @@
+// GAME Constants
+export const NUM_OF_LIVES = 3
+
 // BOAT Constants
 export const BOAT_SPEED = 10;
 export const BOAT_WIDTH = 50;

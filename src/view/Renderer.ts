@@ -1,6 +1,7 @@
 import { Boat } from '../logic/Boat';
 import { Plane } from '../logic/Plane';
 import { Parachutist } from '../logic/Parachutist';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from '../config/config';
 
 export class Renderer {
     private context: CanvasRenderingContext2D;
@@ -21,5 +22,10 @@ export class Renderer {
     }
     drawParachutists(parachutists: Parachutist[]) {
         parachutists.forEach(parachutist => parachutist.draw(this.context));
+    }
+    drawGameOver() {
+        this.context.fillStyle = 'red';
+        this.context.font = '48px serif';
+        this.context.fillText('Game Over', CANVAS_WIDTH / 2 - 100, CANVAS_HEIGHT / 2);
     }
 }

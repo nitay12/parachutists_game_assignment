@@ -2,6 +2,8 @@ import { Boat } from "./Boat";
 import { Plane } from "./Plane";
 import { SingleDropPlane } from "./SingleDropPlane";
 import { Renderer } from "../view/Renderer";
+import { NUM_OF_LIVES } from "../config/constants";
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../config/config";
 
 export class Game {
   private canvas: HTMLCanvasElement;
@@ -11,7 +13,8 @@ export class Game {
   private renderer: Renderer;
   private lastTime: number;
   private score: number;
-  private misses: number;
+  private lives: number;
+  private isGameOver: boolean;
 
   constructor(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
     this.canvas = canvas;
@@ -21,7 +24,8 @@ export class Game {
     this.renderer = new Renderer(this.context);
     this.lastTime = 0;
     this.score = 0;
-    this.misses = 0;
+    this.lives = NUM_OF_LIVES;
+    this.isGameOver = false;
   }
 
   start() {
@@ -33,11 +37,16 @@ export class Game {
     this.lastTime = timestamp;
     this.update(deltaTime);
     this.draw();
-  
+
     requestAnimationFrame(this.gameLoop.bind(this));
   }
 
   public update(deltaTime: number) {
+    if (this.isGameOver) {
+      this.renderer.clearCanvas();
+      this.renderer.drawGameOver();
+      return;
+    }
     this.plane.update(deltaTime);
     this.plane.getParachutists().forEach((parachutist) => {
       parachutist.update(deltaTime);
@@ -51,9 +60,16 @@ export class Game {
         )
       ) {
         parachutist.catch();
-        this.score += 1;
-      } else if (parachutist.isOutOfBounds(this.canvas.height-parachutist.getBounds().height)) {
-        this.misses += 1;
+        this.score += 10;
+      } else if (
+        parachutist.isOutOfBounds(
+          this.canvas.height - parachutist.getBounds().height
+        )
+      ) {
+        this.lives -= 1;
+        if (this.lives <= 0) {
+          this.isGameOver = true;
+        }
       }
     });
   }
@@ -63,13 +79,17 @@ export class Game {
     this.renderer.drawPlane(this.plane);
     this.renderer.drawBoat(this.boat);
     this.drawScore();
+    if (this.isGameOver) {
+      this.renderer.clearCanvas();
+      this.renderer.drawGameOver();
+    }
   }
 
   private drawScore() {
-      this.context.fillStyle = 'black';
-      this.context.font = '20px Arial';
-      this.context.fillText(`Score: ${this.score}`, 10, 20);
-      this.context.fillText(`Misses: ${this.misses}`, 10, 40);
+    this.context.fillStyle = "black";
+    this.context.font = "20px Arial";
+    this.context.fillText(`Score: ${this.score}`, 10, 20);
+    this.context.fillText(`Lives: ${this.lives}`, 10, 40);
   }
 
   moveBoatLeft() {

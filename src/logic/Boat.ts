@@ -1,5 +1,5 @@
 import { BOAT_SPEED, BOAT_WIDTH, BOAT_HEIGHT } from "../config/constants";
-import { BOAT_IMAGE } from "../config/config";
+import { BOAT_IMAGE, CANVAS_WIDTH } from "../config/config";
 export class Boat {
   private x: number;
   private y: number;
@@ -19,9 +19,9 @@ export class Boat {
   }
 
   move(direction: "left" | "right") {
-    if (direction === "left") {
+    if (this.x >= 0 && direction === "left") {
       this.x -= this.speed;
-    } else if (direction === "right") {
+    } else if (this.x <= CANVAS_WIDTH - this.width && direction === "right") {
       this.x += this.speed;
     }
   }

@@ -8,6 +8,11 @@ export const BOAT_HEIGHT = 20;
 
 // PLANE Constants
 export const DROP_INTERVAL = 3000
+export const PLANE_INIT_X = 0
+export const PLANE_INIT_Y = 40
+export const PLANE_WIDTH = 50
+export const PLANE_HEIGHT = 30
+export const PLANE_SPEED = 2
 
 // PARACHUTIST Constants
 export const PARACHUTIST_WIDTH = 40

@@ -1,5 +1,5 @@
 import { Parachutist } from './Parachutist';
-import { DROP_INTERVAL } from '../config/constants';
+import { DROP_INTERVAL, PLANE_SPEED } from '../config/constants';
 import { CANVAS_HEIGHT, CANVAS_WIDTH, PLANE_IMAGE } from '../config/config';
 
 export abstract class Plane {
@@ -33,9 +33,9 @@ export abstract class Plane {
 
         while (this.dropTimer >= this.dropInterval) {
             this.dropParachutist();
-            this.dropTimer -= this.dropInterval; // Correctly reduce by dropInterval
+            this.dropTimer -= this.dropInterval; 
         }
-        this.x -= 1;
+        this.x -= PLANE_SPEED;
         if (this.x < -this.width) {
             this.x = CANVAS_WIDTH;
         }

@@ -2,8 +2,7 @@ import { Boat } from "./Boat";
 import { Plane } from "./Plane";
 import { SingleDropPlane } from "./SingleDropPlane";
 import { Renderer } from "../view/Renderer";
-import { NUM_OF_LIVES } from "../config/constants";
-import { CANVAS_HEIGHT, CANVAS_WIDTH } from "../config/config";
+import { NUM_OF_LIVES, PLANE_HEIGHT, PLANE_WIDTH, PLANE_INIT_Y, PLANE_INIT_X } from "../config/constants";
 
 export class Game {
   private canvas: HTMLCanvasElement;
@@ -20,7 +19,7 @@ export class Game {
     this.canvas = canvas;
     this.context = context;
     this.boat = new Boat(canvas.width, canvas.height);
-    this.plane = new SingleDropPlane(40, 40, 50, 30);
+    this.plane = new SingleDropPlane(PLANE_INIT_X, PLANE_INIT_Y, PLANE_WIDTH, PLANE_HEIGHT);
     this.renderer = new Renderer(this.context);
     this.lastTime = 0;
     this.score = 0;

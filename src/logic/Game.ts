@@ -78,19 +78,14 @@ export class Game {
     this.renderer.clearCanvas();
     this.renderer.drawPlane(this.plane);
     this.renderer.drawBoat(this.boat);
-    this.drawScore();
+    this.renderer.drawScore(this.score, this.lives);
     if (this.isGameOver) {
       this.renderer.clearCanvas();
       this.renderer.drawGameOver();
     }
   }
 
-  private drawScore() {
-    this.context.fillStyle = "black";
-    this.context.font = "20px Arial";
-    this.context.fillText(`Score: ${this.score}`, 10, 20);
-    this.context.fillText(`Lives: ${this.lives}`, 10, 40);
-  }
+  
 
   moveBoatLeft() {
     this.boat.move("left");
